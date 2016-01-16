@@ -23,5 +23,13 @@ $ docker pull dmoj/judge-small
 Then you can run the judge with this command:
 
 ```shell
-$ docker run dmoj/judge-small <connection url> <judge name> <judge key>
+$ docker run -v <problem directory>:/problems:ro dmoj/judge-small <connection url> <judge name> <judge key>
 ```
+
+where:
+  * `<problem directory>` is a DMOJ problem repository that will be mounted as `/problems` in the image, read-only.
+    * A DMOJ problem repository is a directory containing separate directories, each containing problem folders
+      (these contain `init,json`). This structure allows groups of problems to be selectively toggled on/off by the admin.
+  * `<connection url>` is the AMQP URL used to connect to the site
+  * `<judge name>` is the judge name as declared on the site
+  * `<judge key>` is the API key used to authenticate the judge
